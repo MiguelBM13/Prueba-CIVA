@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Componente de Formulario para Registrar o Editar un Bus.
+ * Reutiliza la misma vista para ambas acciones (Creación y Actualización).
+ */
 const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
+  // Inicialización del estado del formulario. 
+  // Si se provee initialData, se asume que es una edición y se cargan esos datos.
   const [formData, setFormData] = useState({
     numeroBus: initialData?.numeroBus || '',
     placa: initialData?.placa || '',
@@ -12,12 +18,14 @@ const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Efecto ejecutado al montar el componente para obtener el listado de marcas disponibles.
   useEffect(() => {
     fetchMarcas();
-    
-    // If initialData provides a marcaNombre but not marcaId, we need to map it after fetching marcas
   }, []);
 
+  /**
+   * Obtiene la lista de marcas desde el backend para poblar el elemento <select>.
+   */
   const fetchMarcas = async () => {
     try {
       const response = await fetch('http://localhost:8080/marcas', {
@@ -42,6 +50,9 @@ const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
     }
   };
 
+  /**
+   * Manejador centralizado para los cambios en los inputs (texto, checkbox y select).
+   */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -50,11 +61,16 @@ const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
     });
   };
 
+  /**
+   * Ejecuta el envío de los datos hacia la API REST.
+   * Dependiendo de si existe initialData, realizará un POST (Crear) o un PUT (Actualizar).
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
+      // Determinar la URL y el Método HTTP dependiendo de si es edición o creación
       const isEditing = !!initialData;
       const url = isEditing ? `http://localhost:8080/bus/${initialData.id}` : 'http://localhost:8080/bus';
       const method = isEditing ? 'PUT' : 'POST';
