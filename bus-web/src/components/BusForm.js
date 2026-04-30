@@ -129,7 +129,7 @@ const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
             <input
               type="text"
               name="placa"
-              maxLength={6}
+              maxLength={7}
               className="form-input font-mono"
               value={formData.placa}
               onChange={handleChange}
