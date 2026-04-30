@@ -12,7 +12,7 @@ const BusForm = ({ onClose, onSave, getAuthHeader, initialData }) => {
     placa: initialData?.placa || '',
     caracteristicas: initialData?.caracteristicas || '',
     marcaId: initialData?.marcaId || '', // Assuming initialData has marcaId, if not we have to match by name
-    activo: initialData !== undefined ? initialData.activo : true
+    activo: initialData ? initialData.activo : true
   });
   const [marcas, setMarcas] = useState([]);
   const [loading, setLoading] = useState(false);
