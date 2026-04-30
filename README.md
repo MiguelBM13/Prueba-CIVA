@@ -1,0 +1,2 @@
+El sistema permite gestionar una flota de buses: listar unidades con paginación, consultar el detalle de cada bus, registrar nuevas unidades y actualizar su estado operativo.
+El backend expone una API REST construida con Java 17 y Spring Boot 3, respaldada por PostgreSQL y protegida con autenticación Basic Auth. El frontend consume dicha API usando React 18 con hooks nativos (useState, useEffect) y la Fetch API, sin dependencias externas de estado.
